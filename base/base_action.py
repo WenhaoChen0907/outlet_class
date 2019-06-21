@@ -150,7 +150,7 @@ class BaseAction:
                 # driver.find_element_by_xpath("//*[@text='用户']").click()
                 # return self.driver.find_element(*feature)
                 return self.find_element(feature)
-            except NoSuchElementException:
+            except TimeoutException:
 
                 # 记录一下滑动之前的page_source
                 old_page_source = self.driver.page_source
