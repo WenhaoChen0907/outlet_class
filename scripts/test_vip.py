@@ -28,14 +28,7 @@ class TestVip:
         # vip - 点击 成为会员
         self.page.vip.click_be_vip()
 
-        while True:
-            res = "邀请码输入不正确" in self.driver.page_source
-            if res:
-                assert True
-                break
-            else:
-                print("暂时没找到")
-
+        assert self.page.vip.is_can_not_be_vip("邀请码输入不正确")
 
 
         # assert WebDriverWait("邀请码输入不正确", 10, 1).until(lambda x: x in self.driver.page_source)
