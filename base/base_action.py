@@ -1,4 +1,4 @@
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -98,3 +98,65 @@ class BaseAction:
         """
         toast_feature = By.XPATH, "//*[contains(@text,'%s')]" % message
         return self.is_feature_exist(toast_feature, timeout, poll)
+
+    def scroll_page_one_time(self, direction="up"):
+        """
+        滑动一次屏幕
+        :param dir: 滑动的方向
+            "up"：从下往上
+            "down"：从上往下
+            "left"：从右往左
+            "right"：从左往右
+        :return:
+        """
+        # 滑动
+        screen_width = self.driver.get_window_size()["width"]
+        screen_height = self.driver.get_window_size()["height"]
+
+        top_x = screen_width * 0.5
+        top_y = screen_height * 0.25
+        bottom_x = screen_width * 0.5
+        bottom_y = screen_height * 0.75
+        left_x = screen_width * 0.25
+        left_y = screen_height * 0.5
+        right_x = screen_width * 0.75
+        right_y = screen_height * 0.5
+
+        # 根据方向参数，去滑动
+        if direction == "up":
+            self.driver.swipe(bottom_x, bottom_y, top_x, top_y, 3000)
+        elif direction == "down":
+            self.driver.swipe(top_x, top_y, bottom_x, bottom_y, 3000)
+        elif direction == "left":
+            self.driver.swipe(right_x, right_y, left_x, left_y, 3000)
+        elif direction == "right":
+            self.driver.swipe(left_x, left_y, right_x, right_y, 3000)
+        else:
+            raise Exception("请输入正确的滑动方向 up/down/left/right")
+
+    def find_element_with_scroll(self, feature, direction="up"):
+        """
+        按照 dir 的方向滑动，并且找到 feature 这个特征的元素
+        :param dir:
+            "up"：从下往上
+            "down"：从上往下
+            "left"：从右往左
+            "right"：从左往右
+        :return: 找到的元素
+        """
+        while True:
+            try:
+                # 如果找到关于手机，就段点进去
+                # driver.find_element_by_xpath("//*[@text='用户']").click()
+                # return self.driver.find_element(*feature)
+                return self.find_element(feature)
+            except NoSuchElementException:
+
+                # 记录一下滑动之前的page_source
+                old_page_source = self.driver.page_source
+
+                self.scroll_page_one_time(direction)
+
+                # 判断滑动之后是不是和之前的页面一样
+                if old_page_source == self.driver.page_source:
+                    raise Exception("到底了！请检查传入的元素的特征")
