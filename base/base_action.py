@@ -1,3 +1,5 @@
+import time
+
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -160,3 +162,20 @@ class BaseAction:
                 # 判断滑动之后是不是和之前的页面一样
                 if old_page_source == self.driver.page_source:
                     raise Exception("到底了！请检查传入的元素的特征")
+
+    def is_keyword_in_page_source(self, keyword, timeout=5.0, poll=0.5):
+        """
+        判断 keyword 是否在当前页面的 page_source 中
+        :param keyword: 需要查询的字符串
+        :return: 是否在页面中
+        """
+        end_time = time.time() + timeout
+        while True:
+            res = keyword in self.driver.page_source
+            if res:
+                return True
+
+            if time.time() > end_time:
+                return False
+
+            time.sleep(poll)
