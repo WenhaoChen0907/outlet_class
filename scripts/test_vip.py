@@ -1,7 +1,11 @@
 import time
 
+from selenium.webdriver.support.wait import WebDriverWait
+
 from base.base_driver import init_driver
 from page.page import Page
+
+
 
 
 class TestVip:
@@ -24,5 +28,21 @@ class TestVip:
         # vip - 点击 成为会员
         self.page.vip.click_be_vip()
 
+        while True:
+            res = "邀请码输入不正确" in self.driver.page_source
+            if res:
+                assert True
+                break
+            else:
+                print("暂时没找到")
+
+
+
+        # assert WebDriverWait("邀请码输入不正确", 10, 1).until(lambda x: x in self.driver.page_source)
+
+        # assert "邀请码输入不正确" in self.driver.page_source
+
         # 切换回原生的环境
         self.driver.switch_to.context("NATIVE_APP")
+
+
