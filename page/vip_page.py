@@ -23,4 +23,4 @@ class VipPage(BaseAction):
 
     # 获取邀请码是否无效
     def is_can_not_be_vip(self, value):
-        return self.is_keyword_in_page_source(value)
+        return self.is_keyword_in_page_source(value, poll=0)

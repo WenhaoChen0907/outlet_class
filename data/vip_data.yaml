@@ -1,0 +1,7 @@
+test_vip:
+  test_vip_001:
+    invite_code: "hello"
+    toast: "邀请码输入不正确"
+  test_vip_002:
+    invite_code: ""
+    toast: "请填写邀请码"
