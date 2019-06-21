@@ -36,5 +36,4 @@ class TestLogin:
             assert self.page.me.get_username_text() == "itheima_test"
         else:
             # 断言：toast内容是否和预期一致
-            xpath = By.XPATH, "//*[@text='" + toast + "']"
-            assert self.page.login.find_element(xpath)
+            assert self.page.login.is_toast_exist(toast)
