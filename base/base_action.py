@@ -36,3 +36,6 @@ class BaseAction:
 
     def clear(self, feature):
         self.find_element(feature).clear()
+
+    def get_feature_text(self, feature):
+        return self.find_element(feature).text
