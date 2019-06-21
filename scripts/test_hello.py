@@ -7,4 +7,4 @@ class TestHello:
         self.driver = init_driver()
 
     def test_hello(self):
-        print("xxx")
+        print("123")
