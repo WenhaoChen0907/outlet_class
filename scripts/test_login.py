@@ -10,7 +10,7 @@ import pytest
 class TestLogin:
 
     def setup(self):
-        self.driver = init_driver()
+        self.driver = init_driver(False)
         self.page = Page(self.driver)
 
     @pytest.mark.parametrize("args", analyze_data("login_data", "test_login"))

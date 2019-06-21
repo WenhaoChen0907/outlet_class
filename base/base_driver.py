@@ -1,7 +1,7 @@
 from appium import webdriver
 
 
-def init_driver():
+def init_driver(no_reset=True):
     desired_caps = dict()
     desired_caps['platformName'] = 'Android'
     desired_caps['platformVersion'] = '5.1'
@@ -9,6 +9,6 @@ def init_driver():
     desired_caps['appPackage'] = 'com.yunmall.lc'
     desired_caps['appActivity'] = 'com.yunmall.ymctoc.ui.activity.MainActivity'
     desired_caps['automationName'] = 'Uiautomator2'
-    # desired_caps['noReset'] = True
+    desired_caps['noReset'] = no_reset
 
     return webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
