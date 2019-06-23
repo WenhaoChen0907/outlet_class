@@ -34,3 +34,6 @@ class TestAddress:
 
         # 新增地址 - 点击 保存
         self.page.edit_address.click_save()
+
+        # 断言：保存后的手机号和收件人，时候和输入的一致
+        assert self.page.address_list.get_default_receipt_name_text() == "%s  %s" % ("zhangsan", "18888888888")
