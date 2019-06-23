@@ -24,3 +24,6 @@ class AddressListPage(BaseAction):
     def click_default(self):
         self.click(self.default_button)
 
+    def is_default_exist(self):
+        return self.is_feature_exist(self.default_button)
+
