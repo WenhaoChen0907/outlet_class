@@ -19,6 +19,9 @@ class EditAddressPage(BaseAction):
     # 设为默认地址
     default_button = By.ID, "com.yunmall.lc:id/address_default"
 
+    # 所在地区
+    region_button = By.ID, "com.yunmall.lc:id/address_province"
+
     # 保存
     save_button = By.XPATH, "//*[@resource-id='com.yunmall.lc:id/button_send' and @text='保存']"
 
@@ -42,6 +45,12 @@ class EditAddressPage(BaseAction):
     def click_default(self):
         self.click(self.default_button)
 
+    # 点击 所在区域
+    def click_region(self):
+        self.click(self.region_button)
+
     # 点击 保存
     def click_save(self):
         self.click(self.save_button)
+
+

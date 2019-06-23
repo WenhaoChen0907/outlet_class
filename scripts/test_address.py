@@ -25,5 +25,12 @@ class TestAddress:
         self.page.edit_address.input_detail("2单元 302")
         # 新增地址 - 输入 邮编
         self.page.edit_address.input_postal_code("100000")
+        # 新增地址 - 点击 所在地区
+        self.page.edit_address.click_region()
+        # 新增地址 - 选择区域
+        self.page.region.choose_region()
         # 新增地址 - 点击 设为默认地址
         self.page.edit_address.click_default()
+
+        # 新增地址 - 点击 保存
+        self.page.edit_address.click_save()

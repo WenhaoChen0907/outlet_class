@@ -4,6 +4,7 @@ from page.edit_address_page import EditAddressPage
 from page.home_page import HomePage
 from page.login_page import LoginPage
 from page.me_page import MePage
+from page.region_page import RegionPage
 from page.register_page import RegisterPage
 from page.setting_page import SettingPage
 from page.vip_page import VipPage
@@ -49,3 +50,7 @@ class Page:
     @property
     def edit_address(self):
         return EditAddressPage(self.driver)
+
+    @property
+    def region(self):
+        return RegionPage(self.driver)
