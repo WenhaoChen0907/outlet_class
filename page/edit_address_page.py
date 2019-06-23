@@ -67,7 +67,10 @@ class EditAddressPage(BaseAction):
 
     # 获取 收件人 的文字内容
     def get_postal_code_text(self):
-        return self.get_feature_text(self.postal_code_edit_text)
+        text = self.get_feature_text(self.postal_code_edit_text)
+        if text == "可选填":
+            text = ""
+        return text
 
     # 获取 所在区域 的文字内容
     def get_region_text(self):

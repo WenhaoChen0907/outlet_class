@@ -1,5 +1,8 @@
+from base.base_analyze import analyze_data
 from base.base_driver import init_driver
 from page.page import Page
+
+import pytest
 
 
 class TestAddress:
@@ -8,7 +11,16 @@ class TestAddress:
         self.driver = init_driver()
         self.page = Page(self.driver)
 
-    def test_add_address(self):
+    @pytest.mark.parametrize("args", analyze_data("address_data", "test_add_address"))
+    def test_add_address(self, args):
+
+        # 解析数据
+        name = args["name"]
+        phone = args["phone"]
+        detail = args["detail"]
+        postal_code = args["postal_code"]
+        toast = args["toast"]
+
         # 首页 - 如果没有登录，则登录，并停留在 "我" 的页面
         self.page.home.login_if_not(self.page)
         # 我 - 点击 设置
@@ -18,13 +30,13 @@ class TestAddress:
         # 地址管理 - 点击 新增地址
         self.page.address_list.click_new_address()
         # 新增地址 - 输入 收件人
-        self.page.edit_address.input_name("zhangsan")
+        self.page.edit_address.input_name(name)
         # 新增地址 - 输入 手机号
-        self.page.edit_address.input_phone("18888888")
+        self.page.edit_address.input_phone(phone)
         # 新增地址 - 输入 详细地址
-        self.page.edit_address.input_detail("2单元 302")
+        self.page.edit_address.input_detail(detail)
         # 新增地址 - 输入 邮编
-        self.page.edit_address.input_postal_code("100000")
+        self.page.edit_address.input_postal_code(postal_code)
         # 新增地址 - 点击 所在地区
         self.page.edit_address.click_region()
         # 新增地址 - 选择区域
@@ -35,20 +47,26 @@ class TestAddress:
         # 新增地址 - 点击 保存
         self.page.edit_address.click_save()
 
-        assert self.page.edit_address.is_toast_exist("11位手机号")
+        if toast is None:
+            # 点击进入编辑收货地址的页面，根据每一项内容进行断言
+            self.page.address_list.click_default()
+            # 断言：收件人的内容和输入的收件人的内容是否一致
+            assert self.page.edit_address.get_name_text() == name
+            # 断言：手机号的内容和输入的手机号的内容是否一致
+            assert self.page.edit_address.get_phone_text() == phone
+            # 断言：详细地址的内容和输入的详细地址的内容是否一致
+            assert self.page.edit_address.get_detail_text() == detail
+            # 断言：邮编的内容和输入的邮编的内容是否一致
+            assert self.page.edit_address.get_postal_code_text() == postal_code
+            # 断言：所在区域的内容和随机点击的所在区域的内容是否一致
+            assert self.page.edit_address.get_region_text() == region_text
 
-        # # 点击进入编辑收货地址的页面，根据每一项内容进行断言
-        # self.page.address_list.click_default()
-        # # 断言：收件人的内容和输入的收件人的内容是否一致
-        # assert self.page.edit_address.get_name_text() == "zhangsan"
-        # # 断言：手机号的内容和输入的手机号的内容是否一致
-        # assert self.page.edit_address.get_phone_text() == "18888888888"
-        # # 断言：详细地址的内容和输入的详细地址的内容是否一致
-        # assert self.page.edit_address.get_detail_text() == "2单元 302"
-        # # 断言：邮编的内容和输入的邮编的内容是否一致
-        # assert self.page.edit_address.get_postal_code_text() == "100000"
-        # # 断言：所在区域的内容和随机点击的所在区域的内容是否一致
-        # assert self.page.edit_address.get_region_text() == region_text
+            # # 断言：保存后的手机号和收件人，时候和输入的一致
+            # assert self.page.address_list.get_default_receipt_name_text() == "%s  %s" % ("zhangsan", "18888888888")
 
-        # # 断言：保存后的手机号和收件人，时候和输入的一致
-        # assert self.page.address_list.get_default_receipt_name_text() == "%s  %s" % ("zhangsan", "18888888888")
+        else:
+            # 断言：toast的内容是否和预期一致
+            assert self.page.edit_address.is_toast_exist(toast)
+
+
+
