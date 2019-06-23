@@ -1,3 +1,6 @@
+import time
+
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
 from base.base_action import BaseAction
@@ -13,6 +16,15 @@ class AddressListPage(BaseAction):
     # 默认标记
     default_button = By.ID, "com.yunmall.lc:id/address_is_default"
 
+    # 编辑
+    edit_button = By.XPATH, "//*[@text='编辑']"
+
+    # 删除
+    delete_button = By.XPATH, "//*[@text='删除']"
+
+    # 确认
+    commit_button = By.XPATH, "//*[@text='确认']"
+
     # 点击 版本更新
     def click_new_address(self):
         self.click(self.new_address_button)
@@ -26,4 +38,33 @@ class AddressListPage(BaseAction):
 
     def is_default_exist(self):
         return self.is_feature_exist(self.default_button)
+
+    def delete_all_address(self):
+        for i in range(10):
+            try:
+                self.delete_item()
+            except TimeoutException:
+                # 删除完了
+                return
+            time.sleep(1)
+
+    # 删除第一个收货地址
+    def delete_item(self):
+        self.click_edit()
+        self.click_delete()
+        self.click_commit()
+
+    # 点击 编辑
+    def click_edit(self):
+        self.click(self.edit_button)
+
+    # 点击 删除
+    def click_delete(self):
+        self.click(self.delete_button)
+
+    # 点击 确认
+    def click_commit(self):
+        self.click(self.commit_button)
+
+
 

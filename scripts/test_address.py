@@ -115,3 +115,27 @@ class TestAddress:
 
         # 断言：保存成功的toast是否出现
         assert self.page.address_list.is_toast_exist("保存成功")
+
+    def test_delete_address(self):
+        # 首页 - 如果没有登录，则登录，并停留在 "我" 的页面
+        self.page.home.login_if_not(self.page)
+        # 我 - 点击 设置
+        self.page.me.click_setting()
+        # 设置 - 点击 地址管理
+        self.page.setting.click_address_list()
+        # 地址管理 - 删除十次地址
+        self.page.address_list.delete_all_address()
+
+        assert not self.page.address_list.is_default_exist()
+
+
+        # if not self.page.address_list.is_default_exist():
+        #     assert True
+        # else:
+        #     assert False
+
+
+        # if self.page.address_list.is_default_exist():
+        #     assert False
+        # else:
+        #     assert True
