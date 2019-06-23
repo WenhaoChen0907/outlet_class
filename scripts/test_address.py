@@ -67,7 +67,6 @@ class TestAddress:
             # 断言：toast的内容是否和预期一致
             assert self.page.edit_address.is_toast_exist(toast)
 
-
     def test_edit_address(self):
         # 首页 - 如果没有登录，则登录，并停留在 "我" 的页面
         self.page.home.login_if_not(self.page)
@@ -98,4 +97,21 @@ class TestAddress:
             self.page.edit_address.click_save()
 
         # 修改地址
-        print("准备修改地址")
+        self.page.address_list.click_default()
+        # 新增地址 - 输入 收件人
+        self.page.edit_address.input_name("zhangsan")
+        # 新增地址 - 输入 手机号
+        self.page.edit_address.input_phone("18888888888")
+        # 新增地址 - 输入 详细地址
+        self.page.edit_address.input_detail("三单元 222")
+        # 新增地址 - 输入 邮编
+        self.page.edit_address.input_postal_code("222222")
+        # 新增地址 - 点击 所在地区
+        self.page.edit_address.click_region()
+        # 新增地址 - 选择区域
+        region_text = self.page.region.choose_region()
+        # 新增地址 - 点击 保存
+        self.page.edit_address.click_save()
+
+        # 断言：保存成功的toast是否出现
+        assert self.page.address_list.is_toast_exist("保存成功")
