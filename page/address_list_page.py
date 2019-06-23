@@ -10,6 +10,9 @@ class AddressListPage(BaseAction):
     # 默认的收件人和电话信息
     receipt_name_text_view = By.ID, "com.yunmall.lc:id/receipt_name"
 
+    # 默认标记
+    default_button = By.ID, "com.yunmall.lc:id/address_is_default"
+
     # 点击 版本更新
     def click_new_address(self):
         self.click(self.new_address_button)
@@ -18,4 +21,6 @@ class AddressListPage(BaseAction):
     def get_default_receipt_name_text(self):
         return self.get_feature_text(self.receipt_name_text_view)
 
+    def click_default(self):
+        self.click(self.default_button)
 

@@ -28,12 +28,25 @@ class TestAddress:
         # 新增地址 - 点击 所在地区
         self.page.edit_address.click_region()
         # 新增地址 - 选择区域
-        self.page.region.choose_region()
+        region_text = self.page.region.choose_region()
         # 新增地址 - 点击 设为默认地址
         self.page.edit_address.click_default()
 
         # 新增地址 - 点击 保存
         self.page.edit_address.click_save()
 
-        # 断言：保存后的手机号和收件人，时候和输入的一致
-        assert self.page.address_list.get_default_receipt_name_text() == "%s  %s" % ("zhangsan", "18888888888")
+        # 点击进入编辑收货地址的页面，根据每一项内容进行断言
+        self.page.address_list.click_default()
+        # 断言：收件人的内容和输入的收件人的内容是否一致
+        assert self.page.edit_address.get_name_text() == "zhangsan"
+        # 断言：手机号的内容和输入的手机号的内容是否一致
+        assert self.page.edit_address.get_phone_text() == "18888888888"
+        # 断言：详细地址的内容和输入的详细地址的内容是否一致
+        assert self.page.edit_address.get_detail_text() == "2单元 302"
+        # 断言：邮编的内容和输入的邮编的内容是否一致
+        assert self.page.edit_address.get_postal_code_text() == "100000"
+        # 断言：所在区域的内容和随机点击的所在区域的内容是否一致
+        assert self.page.edit_address.get_region_text() == region_text
+
+        # # 断言：保存后的手机号和收件人，时候和输入的一致
+        # assert self.page.address_list.get_default_receipt_name_text() == "%s  %s" % ("zhangsan", "18888888888")

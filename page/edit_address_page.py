@@ -53,4 +53,24 @@ class EditAddressPage(BaseAction):
     def click_save(self):
         self.click(self.save_button)
 
+    # 获取 收件人 的文字内容
+    def get_name_text(self):
+        return self.get_feature_text(self.name_edit_text)
+
+    # 获取 手机号 的文字内容
+    def get_phone_text(self):
+        return self.get_feature_text(self.phone_edit_text)
+
+    # 获取 详细地址 的文字内容
+    def get_detail_text(self):
+        return self.get_feature_text(self.detail_edit_text)
+
+    # 获取 收件人 的文字内容
+    def get_postal_code_text(self):
+        return self.get_feature_text(self.postal_code_edit_text)
+
+    # 获取 所在区域 的文字内容
+    def get_region_text(self):
+        return self.get_feature_text(self.region_button)
+
 
