@@ -11,7 +11,7 @@ def analyze_data(file_name, key):
     :return:
     """
 
-    with open(r".%sdata%s%s.yaml" % (os.sep, os.sep, file_name), "r") as f:
+    with open(r".%sdata%s%s.yaml" % (os.sep, os.sep, file_name), "r", encoding='utf-8') as f:
         data_list = list()
         data_list.extend(yaml.load(f)[key].values())
         return data_list
