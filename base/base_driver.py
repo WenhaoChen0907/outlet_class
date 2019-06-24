@@ -11,4 +11,4 @@ def init_driver(no_reset=True):
     desired_caps['automationName'] = 'Uiautomator2'
     desired_caps['noReset'] = no_reset
 
-    return webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+    return webdriver.Remote('http://192.168.140.74:4723/wd/hub', desired_caps)
