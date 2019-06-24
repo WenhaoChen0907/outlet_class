@@ -19,3 +19,6 @@ class TestShopCart:
         self.page.goods_list.click_goods_detail()
         # 物品详情 - 点击 加入购物车
         self.page.goods_detail.click_add_shop_cart()
+
+
+        self.page.goods_detail.choose_spec()
