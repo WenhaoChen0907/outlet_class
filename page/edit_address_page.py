@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from base.base_action import BaseAction
-
+import allure
 
 class EditAddressPage(BaseAction):
     # 收件人
@@ -26,30 +26,37 @@ class EditAddressPage(BaseAction):
     save_button = By.XPATH, "//*[@resource-id='com.yunmall.lc:id/button_send' and @text='保存']"
 
     # 输入 收件人
+    @allure.step(title="编辑联系人 - 输入 收件人")
     def input_name(self, value):
         self.input(self.name_edit_text, value)
 
     # 输入 手机号
+    @allure.step(title="编辑联系人 - 输入 手机号")
     def input_phone(self, value):
         self.input(self.phone_edit_text, value)
 
     # 输入 详细地址
+    @allure.step(title="编辑联系人 - 输入 详细地址")
     def input_detail(self, value):
         self.input(self.detail_edit_text, value)
 
     # 输入 邮编
+    @allure.step(title="编辑联系人 - 输入 邮编")
     def input_postal_code(self, value):
         self.input(self.postal_code_edit_text, value)
 
     # 点击 设为默认地址
+    @allure.step(title="编辑联系人 - 输入 默认地址")
     def click_default(self):
         self.click(self.default_button)
 
     # 点击 所在区域
+    @allure.step(title="编辑联系人 - 点击 所在区域")
     def click_region(self):
         self.click(self.region_button)
 
     # 点击 保存
+    @allure.step(title="编辑联系人 - 点击 保存")
     def click_save(self):
         self.click(self.save_button)
 

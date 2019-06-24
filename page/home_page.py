@@ -1,4 +1,5 @@
 import time
+import allure
 
 from selenium.webdriver.common.by import By
 
@@ -14,14 +15,17 @@ class HomePage(BaseAction):
     category_button = By.ID, "com.yunmall.lc:id/tab_category"
 
     # 点击 我
+    @allure.step(title="主页 - 点击 我")
     def click_me(self):
         self.click(self.me_button)
 
     # 点击 分类
+    @allure.step(title="主页 - 点击 分类")
     def click_category(self):
         self.click(self.category_button)
 
     # 如果没有登录，则登录
+    @allure.step(title="主页 - 如果没有登录则登录")
     def login_if_not(self, page):
         # 1.判断登录状态
         # 1.1 点击我

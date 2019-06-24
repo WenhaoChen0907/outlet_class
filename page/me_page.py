@@ -3,6 +3,7 @@ import time
 from selenium.webdriver.common.by import By
 
 from base.base_action import BaseAction
+import allure
 
 
 class MePage(BaseAction):
@@ -21,10 +22,12 @@ class MePage(BaseAction):
         return self.get_feature_text(self.username_feature)
 
     # 点击 设置
+    @allure.step(title="我 - 点击 设置")
     def click_setting(self):
         self.click(self.setting_button)
 
     # 点击 加入超级VIP
+    @allure.step(title="我 - 点击 加入超级VIP")
     def click_vip(self):
         self.find_element_with_scroll(self.vip_button).click()
         time.sleep(2)

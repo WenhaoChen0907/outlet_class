@@ -4,12 +4,14 @@ import time
 from selenium.webdriver.common.by import By
 
 from base.base_action import BaseAction
+import allure
 
 
 class RegionPage(BaseAction):
     # area_title
     area_title_feature = By.ID, "com.yunmall.lc:id/area_title"
 
+    @allure.step(title="区域页面 - 选择对应的省市区")
     def choose_region(self):
         region_text = ""
         while True:

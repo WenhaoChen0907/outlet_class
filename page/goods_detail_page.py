@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from base.base_action import BaseAction
-
+import allure
 
 class GoodsDetailPage(BaseAction):
     # 加入购物车
@@ -16,11 +16,13 @@ class GoodsDetailPage(BaseAction):
     # 购物车
     shop_cart_button = By.ID, "com.yunmall.lc:id/btn_shopping_cart"
 
-    # 点击 版本更新
+    # 点击 添加购物车
+    @allure.step(title="商品详情 - 点击 添加购物车")
     def click_add_shop_cart(self):
         self.click(self.add_shop_cart_button)
 
     # 点击 确认
+    @allure.step(title="商品详情 - 点击 确认")
     def click_commit(self):
         self.click(self.commit_button)
 
@@ -28,7 +30,8 @@ class GoodsDetailPage(BaseAction):
     def get_product_title_text(self):
         return self.get_feature_text(self.product_title)
 
-    # 点击 购物车
+    # 点击 购物车'
+    @allure.step(title="商品详情 - 点击 购物车")
     def click_shop_cart(self):
         self.click(self.shop_cart_button)
 
@@ -39,6 +42,7 @@ class GoodsDetailPage(BaseAction):
     #         return toast_text.split(" ")[1]
 
     # 选择所有应该选择的规格
+    @allure.step(title="商品详情 - 选择 商品规格")
     def choose_spec(self):
         while True:
             self.click_commit()
@@ -55,6 +59,6 @@ class GoodsDetailPage(BaseAction):
                 break
 
     def is_product_title_exist(self, product_title):
-        xpath = By.XPATH, "//*[@text='%s' and resource-id='com.yunmall.lc:id/tv_product_title']" % product_title
+        xpath = By.XPATH, "//*[@text='%s' and @resource-id='com.yunmall.lc:id/tv_product_title']" % product_title
         return self.is_feature_exist(xpath)
 

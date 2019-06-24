@@ -1,4 +1,5 @@
 import time
+import allure
 
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -25,7 +26,8 @@ class AddressListPage(BaseAction):
     # 确认
     commit_button = By.XPATH, "//*[@text='确认']"
 
-    # 点击 版本更新
+    # 点击 新建地址
+    @allure.step(title="地址管理 - 点击 新建地址")
     def click_new_address(self):
         self.click(self.new_address_button)
 
@@ -33,12 +35,14 @@ class AddressListPage(BaseAction):
     def get_default_receipt_name_text(self):
         return self.get_feature_text(self.receipt_name_text_view)
 
+    @allure.step(title="地址管理 - 点击 默认地址")
     def click_default(self):
         self.click(self.default_button)
 
     def is_default_exist(self):
         return self.is_feature_exist(self.default_button)
 
+    @allure.step(title="地址管理 - 删除10次 收货地址")
     def delete_all_address(self):
         for i in range(10):
             try:
@@ -55,14 +59,17 @@ class AddressListPage(BaseAction):
         self.click_commit()
 
     # 点击 编辑
+    @allure.step(title="地址管理 - 点击 编辑")
     def click_edit(self):
         self.click(self.edit_button)
 
     # 点击 删除
+    @allure.step(title="地址管理 - 点击 删除")
     def click_delete(self):
         self.click(self.delete_button)
 
     # 点击 确认
+    @allure.step(title="地址管理 - 点击 确认")
     def click_commit(self):
         self.click(self.commit_button)
 
