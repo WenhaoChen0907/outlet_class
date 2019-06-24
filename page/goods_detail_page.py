@@ -10,6 +10,12 @@ class GoodsDetailPage(BaseAction):
     # 确认
     commit_button = By.XPATH, "//*[@text='确认']"
 
+    # 商品的标题
+    product_title = By.ID, "com.yunmall.lc:id/tv_product_title"
+
+    # 购物车
+    shop_cart_button = By.ID, "com.yunmall.lc:id/btn_shopping_cart"
+
     # 点击 版本更新
     def click_add_shop_cart(self):
         self.click(self.add_shop_cart_button)
@@ -17,6 +23,14 @@ class GoodsDetailPage(BaseAction):
     # 点击 确认
     def click_commit(self):
         self.click(self.commit_button)
+
+    # 获取产品的标题
+    def get_product_title_text(self):
+        return self.get_feature_text(self.product_title)
+
+    # 点击 购物车
+    def click_shop_cart(self):
+        self.click(self.shop_cart_button)
 
     # # 获取待选择的规格
     # def get_choose_spec(self):
@@ -36,6 +50,11 @@ class GoodsDetailPage(BaseAction):
                 xpath = By.XPATH, "//*[@text='%s']/../*[2]/*[1]" % choose_spec_text
                 self.find_element(xpath).click()
             else:
+                # self.click_add_shop_cart()
+                # self.click_commit()
                 break
 
+    def is_product_title_exist(self, product_title):
+        xpath = By.XPATH, "//*[@text='%s' and resource-id='com.yunmall.lc:id/tv_product_title']" % product_title
+        return self.is_feature_exist(xpath)
 
